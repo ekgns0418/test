@@ -1,7 +1,10 @@
 import sys
 import copy
+import os
 
-f = open("C:/Users/ekgns/Desktop/TrainList.txt", 'r')
+this_folder = os.path.dirname(os.path.abspath(__file__))
+my_file = os.path.join(this_folder, 'TrainList.txt')
+f = open(my_file, 'r')
 trainlist = []
 indlist = []
 while True:
@@ -26,7 +29,7 @@ class train:
 
     def menu(self):
         while True:
-            print("1. 빠른 시간 기차 검색 및 에매하기")
+            print("1. 빠른 시간 기차 검색 및 예매하기")
             print("2. 전체 기차 편성 보기")
             print("3. 예매 현황 보기, 에매 취소하기")
             print("4. 프로그램 종료")
@@ -109,12 +112,13 @@ class train:
         print("1. 전체 편성 보기")
         print("2. 뒤로 가기")
         all_train_number = int(input("입력 : "))
+        copyTrainlist = copy.deepcopy(trainlist)
         if all_train_number == 1:
             p = 0
             while p < len(trainlist):
-                if trainlist[p][5] == 0:
-                    trainlist[p][5] = "매진"
-                a, b, c, d, e, f = trainlist[p]
+                if copyTrainlist[p][5] == 0:
+                    copyTrainlist[p][5] = '매진'
+                a, b, c, d, e, f = copyTrainlist[p]
                 print(a, b, c, d, e, f)
                 p += 1
 
@@ -134,7 +138,7 @@ class train:
             print("예매 내역")
             print(reserve_list)
             if not reserve_list:
-                print("에매한 기록이 없습니다.")
+                print("예매한 기록이 없습니다.")
                 self.menu()
              
         elif reserve_train_number == 2:
