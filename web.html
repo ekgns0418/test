@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+th, td {padding: 10px;}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+body {background-color: rgb(243, 255, 190);}
+</style>
+</head>
+<body>
+
+<h1 style="background-color:tomato; text-align:center;">Security Homepage</Security></h1>
+<p style="font-size:20px; background-color:lightskyblue; text-align:center;"></h1>total system</p>
+<hr>
+<center>
+    <h2 id="nowtime">현재 시간</h2>
+    <script>
+
+        setInterval(function() {
+
+             var now = new Date();
+
+             var nowtime = "현재 시간은 " + now.getFullYear() + "년 " +
+
+                  (now.getMonth() + 1) + "월 " +   now.getDate() + "일 " +
+
+                  now.getHours() + ":" + now.getMinutes() +
+
+                  ":" + now.getSeconds() + "입니다.";
+
+             document.getElementById("nowtime").innerHTML = nowtime;
+
+             }, 1000);
+
+    </script>
+    </center>
+<h2 style="color:blue;" ></p>camera streaming</h2>
+<h3><img src="{{ url_for('video_feed') }}" width="90%"></h3>
+
+<hr>
+<p>
+<p>
+<center>
+<button onClick="location.href='/get_data'">Move Home Status Page
+</button>
+</center>
+<h2 style="color:blue;">Temperature/Humidity</h2>
+
+<p>The temperature/humidity inside the user's house.</p>
+
+<h4>temperature/humidity</h2>
+<table style="background-color: #f1f1c1; width:80%; ">
+    <tr>
+      <th>Temperature</th>
+      <th>Humidity</th> 
+    </tr>
+    <tr>
+      <td>온도정도</td>
+      <td>습도정도</td>
+   
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>....</td>
+  
+    </tr>
+    <tr>
+      <td>....</td>
+      <td>...</td>
+    </tr>
+  </table>
+<hr>
+
+<h2 style="color:blue;">GPS</h2>
+<p>location</p>
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+<hr>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+ <script>
+ function initialize() {
+
+ var Y_point = 37.300507; // Y 좌표
+ var X_point = 127.039884; // X 좌표
+ var zoomLevel = 17; // 첫 로딩시 보일 지도의 확대 레벨
+ var markerTitle = "토다이 중계점"; // 현재 위치 마커에 마우스를 올렸을때 나타나는 이름
+ var markerMaxWidth = 300; // 마커를 클릭했을때 나타나는 말풍선의 최대 크기
+
+ // 말풍선 내용
+ var contentString = '<div id="content">' +
+ '<div id="siteNotice">' +
+ '</div>' +
+ '<h3 id="firstHeading" class="firstHeading">토다이 중계점</h3>' +
+ '<div id="bodyContent">' +
+ '<p>서울 노원구 섬밭로 258 건영백화점 4층<br />' +
+ 'Tel. Tel 02) 3391-7888</p>' +
+ '</div>' +
+ '</div>';
+
+ var myLatlng = new google.maps.LatLng(Y_point, X_point);
+ var mapOptions = {
+ zoom: zoomLevel,
+ center: myLatlng,
+ mapTypeId: google.maps.MapTypeId.ROADMAP
+ }
+ var map = new google.maps.Map(document.getElementById('map_view'), mapOptions);
+
+ var marker = new google.maps.Marker({
+ position: myLatlng,
+ map: map,
+ title: markerTitle
+ });
+
+ var infowindow = new google.maps.InfoWindow(
+ {
+ content: contentString,
+ maxWidth: markerMaxWidth
+ }
+ );
+
+ google.maps.event.addListener(marker, 'click', function() {
+ infowindow.open(map, marker);
+ });
+ }
+ </script>
+</head>
+
+<body onload="initialize()">
+ <div id="map_view" style="width:500px; height:300px;"></div>
+
+
+</body>
+</html>
